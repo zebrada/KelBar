@@ -1,0 +1,21 @@
+Sous Eclipse faire : 
+
+Importer -> Existing Projects into Workspace
+
+Next
+
+Select Root Directory : mettre répertoire du dossier java dans Git
+
+Valider
+
+C'est tout ok :D 
+
+Swag
+
+Yolo
+
+#Coddeur_de_ouf
+
+#Maintenant_va_taffer
+
+!

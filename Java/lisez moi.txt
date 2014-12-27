@@ -19,3 +19,9 @@ Yolo
 #Maintenant_va_taffer
 
 !
+
+// Todo 
+Guigui : Ut,  Abonne Adresse
+Micka : Evenement Note
+Zac : Cata Bar 
+Synt : Admin Gerant

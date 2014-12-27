@@ -8,12 +8,12 @@ public class Gerant extends Utilisateur
 	
 	public Gerant( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
 	{
-		
+		super(pseudo, prenom, nom, adresse, dateNaissance, email, motDePasse);
 	}
 	
 	public Gerant( Abonne abonne )
 	{
-		
+		super(pseudo, prenom, nom, adresse, dateNaissance, email, motDePasse);
 	}
 	
 	public boolean supprimerGerant( )

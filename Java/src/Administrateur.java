@@ -8,12 +8,12 @@ public class Administrateur extends Utilisateur
 	
 	public Administrateur( String Prenom, String Nom, Adresse Adresse, String DateNaissance, String Email, String Pseudo, boolean EstSuperAdmin )
 	{
-		
+		super(pseudo, prenom, nom, adresse, dateNaissance, email, motDePasse);
 	}
 	
 	public Administrateur( String Prenom, String Nom, Adresse Adresse, String DateNaissance, String Email, String Pseudo )
 	{
-		
+		super(pseudo, prenom, nom, adresse, dateNaissance, email, motDePasse);
 	}
 	
 	public boolean supprimerAdministrateur( )

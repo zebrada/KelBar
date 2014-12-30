@@ -11,7 +11,7 @@ public class Note
 	private String commentaire;
 	
 	private Bar barNote;
-	
+	/*Ajout de la methode get Abonne*/
 	public Note( Abonne u, int val, String com, Bar b )
 	{
 		
@@ -25,6 +25,10 @@ public class Note
 	public boolean supprimerNote( )
 	{
 		return false;
+	}
+	public Abonne getNoteur()
+	{
+		return this.abonneNoteur;
 	}
 	
 	

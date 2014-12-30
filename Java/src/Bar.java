@@ -1,12 +1,10 @@
-/**
- * @(#) Bar.java
- */
+
 
 public class Bar
 {
 	private String nom;
-	
-	private Note listeDesNotes;
+	/* C'est un tableau de note !!!!!!!*/
+	private Note[] listeDesNotes;
 	
 	private Adresse adresse;
 	
@@ -28,39 +26,64 @@ public class Bar
 	
 	private boolean valide;
 	
-	public Bar( String nom, String heureOuverture, String heureFermeture, int capacité, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
+	public Bar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
-		
+		this.nom = nom;
+		this.heureOuverture = heureOuverture;
+		this.heureFermeture = heureFermeture;
+		this.capaciteBar = capacite;
+		this.promotion = promotion;
+		this.emplacementPhoto = emplacementPhoto;
+		this.adresse = adresse;
+		this.gerant = gerant;
 	}
 	
-	public Bar( String nom, String heureOuverture, String heureFermeture, int capacité, String promotion, String emplacementPhoto, Adresse adresse )
+	public Bar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse )
 	{
-		
+		this.nom = nom;
+		this.heureOuverture = heureOuverture;
+		this.heureFermeture = heureFermeture;
+		this.capaciteBar = capacite;
+		this.promotion = promotion;
+		this.emplacementPhoto = emplacementPhoto;
+		this.adresse = adresse;	
+	}
+	/* Parametre dateSuppression pbl de type String ou int*/
+	public void BarTemporaire( String nom, int capacite, Adresse adresse, int dateSuppression )
+	{
+		this.nom = nom;
+		this.capaciteBar = capacite;
+		this.adresse = adresse;	
+		this.horodateSuppresion = dateSuppression;
 	}
 	
-	public void BarTemporaire( String nom, int capacité, Adresse adresse, String dateSuppression )
+	public boolean supprimerBar( Bar bar)
 	{
-		
-	}
-	
-	public boolean supprimerBar( )
-	{
+		bar = null;
+		System.gc();
 		return false;
 	}
 	
 	public boolean dejaNoter( Abonne a )
 	{
+		int i;
+		for(i=0;i<this.listeDesNotes.length;i++){
+			if(this.listeDesNotes[i].getNoteur() == a)
+				return true;
+		}
 		return false;
 	}
 	
 	public boolean supprimerParticipantCreateur( Abonne inviteOuCreateur )
 	{
+		inviteOuCreateur = null;
+		System.gc();
 		return false;
 	}
 	
 	public boolean estGerant( Utilisateur u1 )
 	{
-		return false;
+		return(u1 == this.gerant)?true:false;
 	}
 	
 	

@@ -24,7 +24,7 @@ public class Bar
 	
 	private Gerant gerant;
 	
-	private Evenement listeEvenements;
+	private List<Evenement> listeEvenements;
 	
 	private boolean valide;
 	
@@ -38,7 +38,8 @@ public class Bar
 		this.setEmplacementPhoto(emplacementPhoto);
 		this.setAdresse(adresse);
 		this.gerant = gerant;
-		this.listeDesNotes = new ArrayList()
+		this.listeDesNotes = new ArrayList<Note>();
+		this.valide = false;
 	}
 	
 	public Bar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse )
@@ -50,6 +51,7 @@ public class Bar
 		this.setPromotion(promotion);
 		this.setEmplacementPhoto(emplacementPhoto);
 		this.setAdresse(adresse);	
+		this.valide = false;
 	}
 	/* Parametre dateSuppression pbl de type String ou int*/
 	public void BarTemporaire( String nom, int capacite, Adresse adresse, int dateSuppression )
@@ -58,6 +60,7 @@ public class Bar
 		this.setCapaciteBar(capacite);
 		this.setAdresse(adresse);	
 		this.setHorodateSuppresion(dateSuppression);
+		this.valide = false;
 	}
 	
 	public boolean supprimerBar( Bar bar)

@@ -163,10 +163,11 @@ public class Catalogue
 	{
 		return null;
 	}
-	
-	public void creerEvenement( String nom, String dateDebut, boolean visibilite, Abonne listeInvitation, Abonne createur, String heureDebut )
+	/* Ajout d'un paramètre =bar*/
+	public void creerEvenement( String nom, String dateDebut, boolean visibilite, List<Abonne> listeInvitation, Abonne createur, String heureDebut,Bar b )
 	{
-		
+		Evenement e1 = new Evenement(nom,dateDebut, visibilite, listeInvitation, createur,heureDebut);
+		listEvenement.add(e1);
 	}
 	
 	public void creerAdministrateur( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo, boolean estSuperAdmin )
@@ -211,12 +212,18 @@ public class Catalogue
 	
 	public boolean supprimerLienAmi( Abonne ab1, Abonne ab2 )
 	{
+		ab1.supprimerAmi(ab2);
+		ab2.supprimerAmi(ab1);
 		return false;
 	}
-	
+	/* retourne 1 si abonné ,2 si gérant et 3 pour les autre*/
 	public void verifStatutUtilisateur( Utilisateur u1 )
 	{
-		
+		if(u1 instanceof Abonne)
+			return 1;
+		else if(u1 instanceof Gerant)
+			return 2;
+		return 3;
 	}
 	/*Je vai le faire*/
 	public boolean modifierBar( Bar b1, String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
@@ -236,17 +243,19 @@ public class Catalogue
 	/*Je vai le faire*/
 	public void creerBar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
-		
+		Bar b1 = new Bar(nom, heureOuverture, heureFermeture, capacite, promotion, emplacementPhoto, adresse, gerant );
+		listeBar.add(b1);
 	}
 	/*Je vai le faire*/
 	public void creerBarTemporaire( String nom, int capacite, Adresse adresse, String dateSuppression )
 	{
-		
+		Bar b1 = new Bar(nom, capacite, adresse, dateSuppression );
+		/*Faut il l'ajouter à la liste de bar ?*/
 	}
 	/*Je vai le faire*/
 	public void accepterBar( Bar b1 )
 	{
-		
+		b1.setValide(true);
 	}
 	
 	

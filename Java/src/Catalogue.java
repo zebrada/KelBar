@@ -1,28 +1,52 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @(#) Catalogue.java
  */
 
 public class Catalogue
 {
-	private Bar listeBar;
+	private List<Bar> listeBar;
 	
-	private Evenement listeEvenement;
+	private List<Evenement> listeEvenement;
 	
-	private Utilisateur listeUtilisateur;
+	private List<Utilisateur> listeUtilisateur;
 	
-	public void chercherUtilisateur( String information )
+	public List<Utilisateur> chercherUtilisateur( String information )
 	{
-		
+		int i;
+		List<Utilisateur> resultat = new ArrayList<Utilisateur>();
+		for(i=0; i< listeUtilisateur.size();i++)
+		{
+			if((information == listeUtilisateur.get(i).getPseudo())||(information == listeUtilisateur.get(i).getPrenom())||(information == listeUtilisateur.get(i).getNom()))
+				resultat.add(listeUtilisateur.get(i));
+		}
+		return resultat;
 	}
 	
-	public Bar chercherBar( String information )
+	public List<Bar> chercherBar( String information )
 	{
-		return null;
+		int i;
+		List<Bar> resultat = new ArrayList<Bar>();
+		for(i=0;i < listeBar.size();i++)
+		{
+			if((information == listeBar.get(i).getNom())||(information == listeBar.get(i).getAdresse().getNomRue()))
+				resultat.add(listeBar.get(i));
+		}
+		return resultat;
 	}
 	
-	public Evenement chercherEvenement( String information )
+	public List<Evenement> chercherEvenement( String information )
 	{
-		return null;
+		int i;
+		List<Evenement> resultat = new ArrayList<Evenement>();
+		for(i=0;i < listeEvenement.size();i++)
+		{
+			if(information == listeEvenement.get(i).getNom())
+				resultat.add(listeEvenement.get(i));
+		}
+		return resultat;
 	}
 	
 	public boolean abonneVersGerant( Abonne a1 )
@@ -50,7 +74,7 @@ public class Catalogue
 		
 	}
 	
-	public void creerEvenement( String nom, String dateHeureDebut, boolean visibilité, Abonne listeInvitation, Abonne createur )
+	public void creerEvenement( String nom, String dateHeureDebut, boolean visibilite, Abonne listeInvitation, Abonne createur )
 	{
 		
 	}
@@ -115,7 +139,7 @@ public class Catalogue
 		return null;
 	}
 	
-	public void creerEvenement( String nom, String dateDebut, boolean visibilité, Abonne listeInvitation, Abonne createur, String heureDebut )
+	public void creerEvenement( String nom, String dateDebut, boolean visibilitï¿½, Abonne listeInvitation, Abonne createur, String heureDebut )
 	{
 		
 	}
@@ -170,7 +194,7 @@ public class Catalogue
 		
 	}
 	
-	public boolean modifierBar( Bar b1, String nom, String heureOuverture, String heureFermeture, int capacité, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
+	public boolean modifierBar( Bar b1, String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
 		return false;
 	}
@@ -180,17 +204,17 @@ public class Catalogue
 		return false;
 	}
 	
-	public boolean modifierEvenement( Evenement e1, String nom, String dateDebut, boolean visibilité, Abonne isteInvitation, Abonne createur, String heureDebut )
+	public boolean modifierEvenement( Evenement e1, String nom, String dateDebut, boolean visibilite, Abonne isteInvitation, Abonne createur, String heureDebut )
 	{
 		return false;
 	}
 	
-	public void creerBar( String nom, String heureOuverture, String heureFermeture, int capacité, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
+	public void creerBar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
 		
 	}
 	
-	public void creerBarTemporaire( String nom, int capacité, Adresse adresse, String dateSuppression )
+	public void creerBarTemporaire( String nom, int capacite, Adresse adresse, String dateSuppression )
 	{
 		
 	}

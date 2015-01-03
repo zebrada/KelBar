@@ -14,7 +14,7 @@ public class Adresse
 	
 	
 	/**
-	 * Créer une adresse
+	 * Crï¿½er une adresse
 	 * @param numRue
 	 * @param nomRue
 	 * @param CP	Code Postale
@@ -24,26 +24,34 @@ public class Adresse
 	{
 		super();
 		this.numRue = numRue;
-		this.nomRue = nomRue;
+		this.setNomRue(nomRue);
 		this.codePostal = CP;
 		this.ville = ville;
 	}
 	
 	/**
-	 * Mets toutes les valeurs à "---"
+	 * Mets toutes les valeurs ï¿½ "---"
 	 * 
-	 * Je rappelle qu'il faut ABSOLUMENT retirer la réference après
+	 * Je rappelle qu'il faut ABSOLUMENT retirer la rï¿½ference aprï¿½s
 	 * 
-	 * La fonction ne détruit pas l'adresse, il la rends inutilisable
+	 * La fonction ne dï¿½truit pas l'adresse, il la rends inutilisable
 	 * @return true
 	 */
 	public boolean supprimerAdresse( )
 	{
 		this.numRue = "---";
-		this.nomRue = "---";
+		this.setNomRue("---");
 		this.codePostal = "---";
 		this.ville = "---";
 		return true;
+	}
+
+	public String getNomRue() {
+		return nomRue;
+	}
+
+	public void setNomRue(String nomRue) {
+		this.nomRue = nomRue;
 	}
 	
 	

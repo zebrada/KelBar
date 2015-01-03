@@ -154,6 +154,20 @@ public class Bar
 	public void setPromotion(String promotion) {
 		this.promotion = promotion;
 	}
+	
+	
+	public void setGerant(Gerant g) {
+		if(this.gerant != null){
+			this.gerant = g;
+		}
+	}
+	
+	public void setGerantNull() {
+		this.gerant = null;
+	}
+	public Gerant getGerant() {
+		return this.gerant;
+	}
 
 	public boolean isValide() {
 		return valide;

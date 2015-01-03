@@ -68,10 +68,25 @@ public class Catalogue
 		listeUtilisateur.add(a1);
 	}
 	
-	public void creerAbonne( Gerant gerant )
+	
+	public void creerAbonne( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
 	{
-		listeUtilisateur.add(gerant);
+		Utilisateur u;
+		for(int i=0; i<this.listeUtilisateur.size(); i++){
+			u=this.listeUtilisateur.get(i);
+			if(u.getPseudo().equals(pseudo)){
+				System.out.println("pseudo deja present");
+				return false;
+			}
+		}
+		
+		
+		
+		Abonne a1 = new Abonne(prenom, nom, adresse, dateNaissance, email, pseudo);
+		listeUtilisateur.add(a1);
 	}
+	
+
 	
 	public void supprimerAbonne( Abonne abonne )
 	{
@@ -159,10 +174,24 @@ public class Catalogue
 		return b1.getListeEvenements();
 	}
 	
+	
+	
 	public Utilisateur tentativeConnection( String pseudo, String mdp )
 	{
+		Utilisateur u;
+		for(int i=0; i<this.listeUtilisateur.size(); i++){
+			u=this.listeUtilisateur.get(i);
+			if(u.getPseudo().equals(pseudo) && u.getMotDePasse().equals(mdp)){
+				if(u.isConnexionAutorise()){
+					u.seConnecter();
+					return u;
+				}
+			}
+		}
 		return null;
 	}
+
+	
 	/* Ajout d'un paramètre =bar*/
 	public void creerEvenement( String nom, String dateDebut, boolean visibilite, List<Abonne> listeInvitation, Abonne createur, String heureDebut,Bar b )
 	{
@@ -170,26 +199,70 @@ public class Catalogue
 		listEvenement.add(e1);
 	}
 	
-	public void creerAdministrateur( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo, boolean estSuperAdmin )
+	
+	public boolean creerAdministrateur( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo, String motDePasse, boolean estSuperAdmin )
 	{
+		/*verif si pseudo deja present*/
+		Utilisateur u;
+		for(int i=0; i<this.listeUtilisateur.size(); i++){
+			u=this.listeUtilisateur.get(i);
+			if(u.getPseudo().equals(pseudo)){
+				System.out.println("pseudo deja present");
+				return false;
+			}
+		}
+		
+		Administrateur a=new Administrateur(prenom, nom, adresse, dateNaissance, email, pseudo, motDePasse, estSuperAdmin );
+		
+		this.listeUtilisateur.add(a);
+		return true;
+	}
+	
+	public boolean creerAdministrateur( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo, String motDePasse )
+	{
+		/*verif si pseudo deja present*/
+		Utilisateur u;
+		for(int i=0; i<this.listeUtilisateur.size(); i++){
+			u=this.listeUtilisateur.get(i);
+			if(u.getPseudo().equals(pseudo)){
+				System.out.println("pseudo deja present");
+				return false;
+			}
+		}
+		
+		Administrateur a=new Administrateur(prenom, nom, adresse, dateNaissance, email, pseudo, motDePasse);
+		
+		this.listeUtilisateur.add(a);
+		return true;
+	}
+	
+	public boolean creerGerant( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo, String motDePasse )
+	{
+		/*verif si pseudo deja present*/
+		Utilisateur u;
+		for(int i=0; i<this.listeUtilisateur.size(); i++){
+			u=this.listeUtilisateur.get(i);
+			if(u.getPseudo().equals(pseudo)){
+				System.out.println("pseudo deja present");
+				return false;
+			}
+		}
+		
+		Gerant g=new Gerant( prenom, nom, adresse, dateNaissance, email, pseudo, motDePasse);
+		this.listeUtilisateur.add(g);
+		return true;
 		
 	}
 	
-	public void creerAdministrateur( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
-	{
-		
-	}
-	
-	public void creerGerant( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
-	{
-		
-	}
 	
 	public void creerGerant( Abonne abonne )
 	{
 		
 	}
 	
+	/* a quoi sert cette methode ?
+	 * il y a deja une methode pour la connexion : tentativeConnection( String pseudo, String mdp )
+	 * */
 	public boolean connecterUtilisateur( Utilisateur u1 )
 	{
 		return false;

@@ -38,6 +38,7 @@ public class Bar
 		this.setEmplacementPhoto(emplacementPhoto);
 		this.setAdresse(adresse);
 		this.gerant = gerant;
+		this.listeDesNotes = new ArrayList()
 	}
 	
 	public Bar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse )
@@ -162,7 +163,7 @@ public class Bar
 		this.valide = valide;
 	}
 
-	public Evenement getListeEvenements() {
+	public list<Evenement> getListeEvenements() {
 		return listeEvenements;
 	}
 

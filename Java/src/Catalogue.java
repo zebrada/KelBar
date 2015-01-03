@@ -48,37 +48,46 @@ public class Catalogue
 		}
 		return resultat;
 	}
-	
-	public boolean abonneVersGerant( Abonne a1 )
+	/*valeur de retour void et nonn bool*/
+	public void abonneVersGerant( Abonne a1 )
 	{
-		return false;
+		Gerant g1 = new Gerant(a1);
+		a1 = null;
+		System.gc();
 	}
-	
+	/*Je vai le faire*/
 	public boolean ajouterNote( Abonne a1, int note, String commentaire, Bar b1 )
 	{
-		return false;
+		Note n1 = new Note( a1, note, commentaire, b1 );
+		
 	}
 	
 	public void creerAbonne( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
 	{
-		
+		Abonne a1 = new Abonne(prenom, nom, adresse, dateNaissance, email, pseudo);
+		listeUtilisateur.add(a1);
 	}
 	
 	public void creerAbonne( Gerant gerant )
 	{
-		
+		listeUtilisateur.add(gerant);
 	}
 	
 	public void supprimerAbonne( Abonne abonne )
 	{
-		
+		int i;
+		for( i =0; i < listeUtilisateur.size();i++)
+		{
+			if(listeUtilisateur.get(i)==abonne)
+				listeUtilisateur.remove(i);
+		}
 	}
-	
-	public void creerEvenement( String nom, String dateHeureDebut, boolean visibilite, Abonne listeInvitation, Abonne createur )
+	/*Ajout d'un bar dans les paramètres */
+	public void creerEvenement( String nom, String dateHeureDebut, boolean visibilite, Abonne listeInvitation, Abonne createur,Bar b )
 	{
-		
+		Evenement e1 = new Evenement(nom, heureDebut, visibilite,List<Abonne> listeInvitation, createur, b);
 	}
-	
+	/*Je vai le faire*/
 	public boolean supprimerEvenement( Evenement ev )
 	{
 		return false;
@@ -86,21 +95,31 @@ public class Catalogue
 	
 	public boolean abonneVersGerant( Abonne a1, Bar b1 )
 	{
+		Gerant g1 = new Gerant()
 		return false;
 	}
-	
+	/* retour de la methode void pas boolean */
 	public boolean gerantVersAbonne( Gerant g1 )
 	{
-		return false;
+		supprimerAbonne(g1);
+		Abonne a1= new Abonne (g1);
+		listeUtilisateur.add(a1);
 	}
 	
 	public boolean deconnecterUtilisateur( Utilisateur u1 )
 	{
-		return false;
+		u1.setConnecte(false);
+		return true;
 	}
 	
 	public boolean supprimerUtilisateur( Utilisateur u1 )
 	{
+		int i;
+		for(i=0;i< listeUtilisateur.size();i++)
+		{
+			if(u1 == listeUtilisateur.get(i))
+				listeUtilisateur.remove(i);
+		}
 		return false;
 	}
 	
@@ -108,17 +127,23 @@ public class Catalogue
 	{
 		return false;
 	}
-	
+	/*Je vai le faire*/
 	public boolean noterBar( Bar b1, int val, String com, Utilisateur u1 )
 	{
+		Note n1 = new Note(u1, val, com, b1 );
 		return false;
 	}
-	
-	public Evenement chercherEvenementDesAmis( Abonne listeAmis )
+	/*Je vai le faire*/
+	public List<Evenement> chercherEvenementDesAmis( Liste<Abonne> listeAmis )
 	{
+		int i,j;
+		for(i=0; i<listeAmis.size();i++)
+		{
+			for(j=0; j < listeAmis.get(i).get)
+		}
 		return null;
 	}
-	
+	/*Je vai le faire*/
 	public boolean inscrireEvenement( Utilisateur u1, Evenement e1 )
 	{
 		return false;
@@ -128,10 +153,10 @@ public class Catalogue
 	{
 		return false;
 	}
-	
-	public Evenement chercherEvenementBar( Bar b1 )
+	/*Je vai le faire*/
+	public list<Evenement> chercherEvenementBar( Bar b1 )
 	{
-		return null;
+		return b1.getListeEvenements();
 	}
 	
 	public Utilisateur tentativeConnection( String pseudo, String mdp )
@@ -139,7 +164,7 @@ public class Catalogue
 		return null;
 	}
 	
-	public void creerEvenement( String nom, String dateDebut, boolean visibilit�, Abonne listeInvitation, Abonne createur, String heureDebut )
+	public void creerEvenement( String nom, String dateDebut, boolean visibilite, Abonne listeInvitation, Abonne createur, String heureDebut )
 	{
 		
 	}
@@ -193,32 +218,32 @@ public class Catalogue
 	{
 		
 	}
-	
+	/*Je vai le faire*/
 	public boolean modifierBar( Bar b1, String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
 		return false;
 	}
-	
+	/*Je vai le faire*/
 	public boolean modifierUtilisateur( Utilisateur u, String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
 	{
 		return false;
 	}
-	
+	/*Je vai le faire*/
 	public boolean modifierEvenement( Evenement e1, String nom, String dateDebut, boolean visibilite, Abonne isteInvitation, Abonne createur, String heureDebut )
 	{
 		return false;
 	}
-	
+	/*Je vai le faire*/
 	public void creerBar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
 		
 	}
-	
+	/*Je vai le faire*/
 	public void creerBarTemporaire( String nom, int capacite, Adresse adresse, String dateSuppression )
 	{
 		
 	}
-	
+	/*Je vai le faire*/
 	public void accepterBar( Bar b1 )
 	{
 		

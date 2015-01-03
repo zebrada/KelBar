@@ -79,9 +79,6 @@ public class Catalogue
 				return false;
 			}
 		}
-		
-		
-		
 		Abonne a1 = new Abonne(prenom, nom, adresse, dateNaissance, email, pseudo);
 		listeUtilisateur.add(a1);
 	}
@@ -270,16 +267,21 @@ public class Catalogue
 	
 	public boolean accepterAmi( Abonne ab_Demandeur, Abonne ab_Accepteur )
 	{
+		ab_Accepteur.listeAmi.add(ab_Demandeur)
+		ab_Accepteur.listeDemandeEnAmi.remove(ab_Demandeur);
 		return false;
 	}
 	
 	public boolean refuserAmi( Abonne ab_Demandeur, Abonne ab_Refuseur )
 	{
-		return false;
+		ab_Refuseur.listeDemandeEnAmi.remove(ab_Demandeur);
+		return true;
 	}
 	
 	public boolean ajouterAmi( Abonne ab_Demandeur, Abonne ab_Accepteur )
 	{
+		if(listeUtilisateur.contains(ab_Accepteur)&&(listeUtilisateur.contains(ab_Demandeur)))
+			ab_Accepteur.listeRecoitDemandeEnAmi.add(ab_Demandeur);
 		return false;
 	}
 	
@@ -296,27 +298,60 @@ public class Catalogue
 			return 1;
 		else if(u1 instanceof Gerant)
 			return 2;
+		else if(u1 instanceof Abonne)
+			return 0;
 		return 3;
 	}
 	/*Je vai le faire*/
 	public boolean modifierBar( Bar b1, String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
+		if(listeBar.contains(b1))
+		{
+			b1.setNom(nom);
+			b1.setHeureOuverture(heureOuverture);
+			b1.setHeureFermeture(heureFermeture);
+			b1.setCapacite(capacite);
+			b1.setPromotion(promotion);
+			b1.setEmplacementPhoto(emplacementPhoto);
+			b1.setAdresse(adresse);
+			b1.setGerant(gerant);
+		}
 		return false;
 	}
 	/*Je vai le faire*/
 	public boolean modifierUtilisateur( Utilisateur u, String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
 	{
+		if(listeUtilisateur.contains(u))
+		{
+			u.setPrenom(prenom);
+			u.setNom(nom);
+			u.setAdresse(adresse);
+			u.setDateNaissance(dateNaissance);
+			u.setEmail(email);
+			u.setPseudo(pseudo);
+		}
 		return false;
 	}
 	/*Je vai le faire*/
-	public boolean modifierEvenement( Evenement e1, String nom, String dateDebut, boolean visibilite, Abonne isteInvitation, Abonne createur, String heureDebut )
+	public boolean modifierEvenement( Evenement e1, String nom, String dateDebut, boolean visibilite, List<Abonne> listeInvitation, Abonne createur, String heureDebut )
 	{
+		if(listeEvenement.contains(e1))
+		{
+			e1.setNom(nom);
+			e1.setDateDebut(dateDebut);
+			e1.setVisibilite(visibilite);
+			e1.setListeInvite(listeInvitation);
+			e1.setLeCreateur(createur);
+			e1.setHeureDebut(heureDebut);
+		}
 		return false;
 	}
 	/*Je vai le faire*/
 	public void creerBar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
 		Bar b1 = new Bar(nom, heureOuverture, heureFermeture, capacite, promotion, emplacementPhoto, adresse, gerant );
+		if(listeBar.contains(b1))
+			return;
 		listeBar.add(b1);
 	}
 	/*Je vai le faire*/

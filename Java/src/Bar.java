@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -180,11 +181,11 @@ public class Bar
 		this.valide = valide;
 	}
 
-	public list<Evenement> getListeEvenements() {
+	public List<Evenement> getListeEvenements() {
 		return listeEvenements;
 	}
 
-	public void setListeEvenements(Evenement listeEvenements) {
+	public void setListeEvenements(List<Evenement> listeEvenements) {
 		this.listeEvenements = listeEvenements;
 	}
 	

@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class Bar
 {
 	private String nom;
@@ -79,6 +77,10 @@ public class Bar
 				return true;
 		}
 		return false;
+	}
+	
+	public boolean noter(Note n){
+		return this.listeDesNotes.add(n);
 	}
 	
 	public boolean supprimerParticipantCreateur( Abonne inviteOuCreateur )
@@ -185,6 +187,13 @@ public class Bar
 		return listeEvenements;
 	}
 
+/* !!!!!!!!!!! erreur au niveau du parametre !!!!!!!!!
+ * 
+ * soit la methode ajoute un evenement à la liste
+ * alors il faut faire un add à la liste 
+ * 
+ * soit elle affecte une liste dans ce cas le type est List<Evenement>
+ * */
 	public void setListeEvenements(List<Evenement> listeEvenements) {
 		this.listeEvenements = listeEvenements;
 	}

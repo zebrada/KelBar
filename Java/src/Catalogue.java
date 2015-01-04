@@ -48,28 +48,28 @@ public class Catalogue
 		}
 		return resultat;
 	}
-	/*valeur de retour void et nonn bool*/
-	public void abonneVersGerant( Abonne a1 )
-	{
-		Gerant g1 = new Gerant(a1);
-		a1 = null;
-		System.gc();
-	}
-	/*Je vai le faire*/
-	public boolean ajouterNote( Abonne a1, int note, String commentaire, Bar b1 )
-	{
-		Note n1 = new Note( a1, note, commentaire, b1 );
-		
-	}
 	
-	public void creerAbonne( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
+	
+
+	public boolean abonneVersGerant( Abonne a1 )
 	{
-		Abonne a1 = new Abonne(prenom, nom, adresse, dateNaissance, email, pseudo);
-		listeUtilisateur.add(a1);
+		if(!a1.isConnecte()){
+			return false;
+		}else{
+			a1.setConnexionAutorise(false);
+			Gerant g= new Gerant(a1);
+			this.listeUtilisateur.remove(a1);
+			this.listeUtilisateur.add(g);
+			return true;
+		}
 	}
 	
 	
-	public void creerAbonne( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
+
+	
+	
+	
+	public boolean creerAbonne( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo, String motDePasse )
 	{
 		Utilisateur u;
 		for(int i=0; i<this.listeUtilisateur.size(); i++){
@@ -79,8 +79,11 @@ public class Catalogue
 				return false;
 			}
 		}
-		Abonne a1 = new Abonne(prenom, nom, adresse, dateNaissance, email, pseudo);
+		Abonne a1 = new Abonne(prenom, nom, adresse, dateNaissance, email, pseudo, motDePasse);
 		listeUtilisateur.add(a1);
+		
+		return true;
+
 	}
 	
 
@@ -94,36 +97,56 @@ public class Catalogue
 				listeUtilisateur.remove(i);
 		}
 	}
-	/*Ajout d'un bar dans les paramètres */
-	public void creerEvenement( String nom, String dateHeureDebut, boolean visibilite, Abonne listeInvitation, Abonne createur,Bar b )
-	{
-		Evenement e1 = new Evenement(nom, heureDebut, visibilite,List<Abonne> listeInvitation, createur, b);
-	}
+	
+	
+
+	
 	/*Je vai le faire*/
 	public boolean supprimerEvenement( Evenement ev )
 	{
 		return false;
 	}
 	
+	
 	public boolean abonneVersGerant( Abonne a1, Bar b1 )
 	{
-		Gerant g1 = new Gerant()
-		return false;
+		if(!a1.isConnecte() && b1.getGerant()==null){
+			return false;
+		}else{
+			a1.setConnexionAutorise(false);
+			Gerant g= new Gerant(a1);
+			this.listeUtilisateur.remove(a1);
+			this.listeUtilisateur.add(g);
+			b1.setGerant(g);
+			return true;
+		}
+		
 	}
-	/* retour de la methode void pas boolean */
+	
+	
+	
 	public boolean gerantVersAbonne( Gerant g1 )
 	{
-		supprimerAbonne(g1);
-		Abonne a1= new Abonne (g1);
-		listeUtilisateur.add(a1);
+		if(!g1.isConnecte()){
+			return false;
+		}else{
+		g1.setConnexionAutorise(false);
+		Abonne a= new Abonne(g1);
+		this.listeUtilisateur.remove(g1);
+		this.listeUtilisateur.add(a);
+		return true;
+		}
 	}
+	
 	
 	public boolean deconnecterUtilisateur( Utilisateur u1 )
 	{
-		u1.setConnecte(false);
-		return true;
+		return u1.seDeconnecte();
+	
 	}
 	
+	
+	/*utiliser les methode supprimer de Abonn�, Gerant et Admin*/
 	public boolean supprimerUtilisateur( Utilisateur u1 )
 	{
 		int i;
@@ -135,26 +158,41 @@ public class Catalogue
 		return false;
 	}
 	
+	
+	
 	public boolean selectionnerBar( Bar b1, Utilisateur u1 )
 	{
 		return false;
 	}
-	/*Je vai le faire*/
+	
+	
 	public boolean noterBar( Bar b1, int val, String com, Utilisateur u1 )
 	{
-		Note n1 = new Note(u1, val, com, b1 );
+		if(this.verifStatutUtilisateur(u1) == 1){
+			if(!b1.dejaNoter((Abonne)u1)){
+				b1.noter(new Note((Abonne)u1,val,com,b1));
+				return true;
+				
+			}
+		}
 		return false;
 	}
-	/*Je vai le faire*/
-	public List<Evenement> chercherEvenementDesAmis( Liste<Abonne> listeAmis )
+	
+	
+	public List<Evenement> chercherEvenementDesAmis( List<Abonne> listeAmis )
 	{
+		
+		List<Evenement> listeEvenementDesAmis= new ArrayList<Evenement>();
 		int i,j;
 		for(i=0; i<listeAmis.size();i++)
 		{
-			for(j=0; j < listeAmis.get(i).get)
+			for(j=0; j < listeAmis.get(i).getListeEvenementsParticipe().size(); j++){
+				listeEvenementDesAmis.add(listeAmis.get(i).getListeEvenementsParticipe().get(j));
+			}
 		}
-		return null;
+		return listeEvenementDesAmis;
 	}
+	
 	/*Je vai le faire*/
 	public boolean inscrireEvenement( Utilisateur u1, Evenement e1 )
 	{
@@ -166,7 +204,7 @@ public class Catalogue
 		return false;
 	}
 	/*Je vai le faire*/
-	public list<Evenement> chercherEvenementBar( Bar b1 )
+	public List<Evenement> chercherEvenementBar( Bar b1 )
 	{
 		return b1.getListeEvenements();
 	}
@@ -192,8 +230,8 @@ public class Catalogue
 	/* Ajout d'un paramètre =bar*/
 	public void creerEvenement( String nom, String dateDebut, boolean visibilite, List<Abonne> listeInvitation, Abonne createur, String heureDebut,Bar b )
 	{
-		Evenement e1 = new Evenement(nom,dateDebut, visibilite, listeInvitation, createur,heureDebut);
-		listEvenement.add(e1);
+		Evenement e1 = new Evenement(nom,dateDebut, visibilite, listeInvitation, createur,heureDebut, b);
+		this.listeEvenement.add(e1);
 	}
 	
 	
@@ -252,37 +290,32 @@ public class Catalogue
 	}
 	
 	
-	public void creerGerant( Abonne abonne )
-	{
-		
-	}
 	
 	/* a quoi sert cette methode ?
 	 * il y a deja une methode pour la connexion : tentativeConnection( String pseudo, String mdp )
 	 * */
 	public boolean connecterUtilisateur( Utilisateur u1 )
+
 	{
 		return false;
 	}
 	
+	
+	
 	public boolean accepterAmi( Abonne ab_Demandeur, Abonne ab_Accepteur )
 	{
-		ab_Accepteur.listeAmi.add(ab_Demandeur)
-		ab_Accepteur.listeDemandeEnAmi.remove(ab_Demandeur);
-		return false;
+		return ab_Accepteur.accepterAmi(ab_Demandeur);
 	}
 	
 	public boolean refuserAmi( Abonne ab_Demandeur, Abonne ab_Refuseur )
 	{
-		ab_Refuseur.listeDemandeEnAmi.remove(ab_Demandeur);
-		return true;
+		
+		return ab_Refuseur.refuserAmi(ab_Demandeur);
 	}
 	
 	public boolean ajouterAmi( Abonne ab_Demandeur, Abonne ab_Accepteur )
 	{
-		if(listeUtilisateur.contains(ab_Accepteur)&&(listeUtilisateur.contains(ab_Demandeur)))
-			ab_Accepteur.listeRecoitDemandeEnAmi.add(ab_Demandeur);
-		return false;
+		return ab_Demandeur.inviterAmi(ab_Accepteur);
 	}
 	
 	public boolean supprimerLienAmi( Abonne ab1, Abonne ab2 )
@@ -291,17 +324,21 @@ public class Catalogue
 		ab2.supprimerAmi(ab1);
 		return false;
 	}
+	
+	
 	/* retourne 1 si abonné ,2 si gérant et 3 pour les autre*/
-	public void verifStatutUtilisateur( Utilisateur u1 )
+	public int verifStatutUtilisateur( Utilisateur u1 )
 	{
 		if(u1 instanceof Abonne)
 			return 1;
 		else if(u1 instanceof Gerant)
 			return 2;
-		else if(u1 instanceof Abonne)
+		else if(u1 instanceof Administrateur)
 			return 0;
 		return 3;
 	}
+	
+	
 	/*Je vai le faire*/
 	public boolean modifierBar( Bar b1, String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
@@ -310,7 +347,7 @@ public class Catalogue
 			b1.setNom(nom);
 			b1.setHeureOuverture(heureOuverture);
 			b1.setHeureFermeture(heureFermeture);
-			b1.setCapacite(capacite);
+			b1.setCapaciteBar(capacite);
 			b1.setPromotion(promotion);
 			b1.setEmplacementPhoto(emplacementPhoto);
 			b1.setAdresse(adresse);
@@ -339,7 +376,7 @@ public class Catalogue
 		{
 			e1.setNom(nom);
 			e1.setDateDebut(dateDebut);
-			e1.setVisibilite(visibilite);
+			e1.setVisible(visibilite);
 			e1.setListeInvite(listeInvitation);
 			e1.setLeCreateur(createur);
 			e1.setHeureDebut(heureDebut);
@@ -354,6 +391,9 @@ public class Catalogue
 			return;
 		listeBar.add(b1);
 	}
+	
+	
+	/*souci avec le constructeur de bar temporaire dans la classe bar*/
 	/*Je vai le faire*/
 	public void creerBarTemporaire( String nom, int capacite, Adresse adresse, String dateSuppression )
 	{

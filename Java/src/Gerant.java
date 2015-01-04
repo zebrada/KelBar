@@ -16,13 +16,23 @@ public class Gerant extends Utilisateur
 	public Gerant( Abonne abonne )
 	{
 		super(abonne.getPseudo(), abonne.getPrenom(), abonne.getNom(), abonne.getAdresse(), abonne.getDateNaissance(), abonne.getEmail(), abonne.getMotDePasse());
+		this.listeBar= new ArrayList<Bar>();
+		abonne.supprimerAbonne();
+	}
+	
+	public Gerant( Abonne abonne, Bar b )
+	{
+		super(abonne.getPseudo(), abonne.getPrenom(), abonne.getNom(), abonne.getAdresse(), abonne.getDateNaissance(), abonne.getEmail(), abonne.getMotDePasse());
+		this.listeBar= new ArrayList<Bar>();
+		this.listeBar.add(b);
 		
 		abonne.supprimerAbonne();
 	}
 	
 	public boolean supprimerGerant( )
 	{
-		return false;
+		this.supprimerLiensBars();
+		return true;
 	}
 	
 	

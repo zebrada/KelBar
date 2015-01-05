@@ -64,11 +64,6 @@ public class Catalogue
 		}
 	}
 	
-	
-
-	
-	
-	
 	public boolean creerAbonne( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo, String motDePasse )
 	{
 		Utilisateur u;
@@ -86,8 +81,6 @@ public class Catalogue
 
 	}
 	
-
-	
 	public void supprimerAbonne( Abonne abonne )
 	{
 		int i;
@@ -96,17 +89,24 @@ public class Catalogue
 			if(listeUtilisateur.get(i)==abonne)
 				listeUtilisateur.remove(i);
 		}
+		abonne.supprimerAbonne( );
 	}
 	
-	
-
-	
-	/*Je vai le faire*/
 	public boolean supprimerEvenement( Evenement ev )
 	{
+		if(listeEvenement.contains(ev))
+		{
+			int i;
+			for( i =0; i < listeEvenement.size();i++)
+			{
+				if(listeEvenement.get(i)==ev)
+					listeEvenement.remove(i);
+			}
+			ev.supprimerEvenement( );
+			return true;
+		}
 		return false;
 	}
-	
 	
 	public boolean abonneVersGerant( Abonne a1, Bar b1 )
 	{
@@ -146,25 +146,27 @@ public class Catalogue
 	}
 	
 	
-	/*utiliser les methode supprimer de AbonnÈ, Gerant et Admin*/
+	/*utiliser les methode supprimer de AbonnÔøΩ, Gerant et Admin*/
 	public boolean supprimerUtilisateur( Utilisateur u1 )
 	{
-		int i;
-		for(i=0;i< listeUtilisateur.size();i++)
+		if(listeUtilisateur.contains(u1))
 		{
-			if(u1 == listeUtilisateur.get(i))
-				listeUtilisateur.remove(i);
+			int i;
+			for(i=0;i< listeUtilisateur.size();i++)
+			{
+				if(u1 == listeUtilisateur.get(i))
+					listeUtilisateur.remove(i);
+			}
+			u1 = null;
+			return true;
 		}
 		return false;
 	}
-	
-	
-	
+	/*Au niveau de l'interface*/
 	public boolean selectionnerBar( Bar b1, Utilisateur u1 )
 	{
 		return false;
 	}
-	
 	
 	public boolean noterBar( Bar b1, int val, String com, Utilisateur u1 )
 	{
@@ -177,7 +179,6 @@ public class Catalogue
 		}
 		return false;
 	}
-	
 	
 	public List<Evenement> chercherEvenementDesAmis( List<Abonne> listeAmis )
 	{
@@ -193,9 +194,9 @@ public class Catalogue
 		return listeEvenementDesAmis;
 	}
 	
-	/*Je vai le faire*/
 	public boolean inscrireEvenement( Utilisateur u1, Evenement e1 )
 	{
+		e1.inscrireAbonne(u1);
 		return false;
 	}
 	
@@ -203,13 +204,11 @@ public class Catalogue
 	{
 		return false;
 	}
-	/*Je vai le faire*/
+	
 	public List<Evenement> chercherEvenementBar( Bar b1 )
 	{
 		return b1.getListeEvenements();
 	}
-	
-	
 	
 	public Utilisateur tentativeConnection( String pseudo, String mdp )
 	{
@@ -226,14 +225,11 @@ public class Catalogue
 		return null;
 	}
 
-	
-	/* Ajout d'un param√®tre =bar*/
 	public void creerEvenement( String nom, String dateDebut, boolean visibilite, List<Abonne> listeInvitation, Abonne createur, String heureDebut,Bar b )
 	{
 		Evenement e1 = new Evenement(nom,dateDebut, visibilite, listeInvitation, createur,heureDebut, b);
 		this.listeEvenement.add(e1);
 	}
-	
 	
 	public boolean creerAdministrateur( String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo, String motDePasse, boolean estSuperAdmin )
 	{
@@ -287,9 +283,7 @@ public class Catalogue
 		this.listeUtilisateur.add(g);
 		return true;
 		
-	}
-	
-	
+	}	
 	
 	/* a quoi sert cette methode ?
 	 * il y a deja une methode pour la connexion : tentativeConnection( String pseudo, String mdp )
@@ -355,7 +349,7 @@ public class Catalogue
 		}
 		return false;
 	}
-	/*Je vai le faire*/
+	
 	public boolean modifierUtilisateur( Utilisateur u, String prenom, String nom, Adresse adresse, String dateNaissance, String email, String pseudo )
 	{
 		if(listeUtilisateur.contains(u))
@@ -369,7 +363,7 @@ public class Catalogue
 		}
 		return false;
 	}
-	/*Je vai le faire*/
+	
 	public boolean modifierEvenement( Evenement e1, String nom, String dateDebut, boolean visibilite, List<Abonne> listeInvitation, Abonne createur, String heureDebut )
 	{
 		if(listeEvenement.contains(e1))
@@ -383,7 +377,7 @@ public class Catalogue
 		}
 		return false;
 	}
-	/*Je vai le faire*/
+	
 	public void creerBar( String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
 		Bar b1 = new Bar(nom, heureOuverture, heureFermeture, capacite, promotion, emplacementPhoto, adresse, gerant );

@@ -1,5 +1,5 @@
 package appInterface;
-
+import appModel.*;
 
 
 import org.eclipse.swt.widgets.Display;
@@ -20,8 +20,13 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		try {
+			
+			Catalogue catalogue = new Catalogue();
+			Adresse addr = new Adresse("1", "av. de la République", "75001", "Paris");
+			catalogue.creerAbonne("Demo", "DEMO", addr, "01/01/1994", "demo@gmail.com", "demo", "demo");
 			Application window = new Application();
 			window.open();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,6 +44,8 @@ public class Application {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
+			ConnectionDialog dialog = new ConnectionDialog(shlKelbarBeta, 1);
+			dialog.open();
 		}
 	}
 

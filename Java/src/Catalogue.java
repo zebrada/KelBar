@@ -154,7 +154,17 @@ public class Catalogue
 			int i;
 			for(i=0;i< listeUtilisateur.size();i++)
 			{
+				
 				if(u1 == listeUtilisateur.get(i))
+					if(u1 instanceof Abonne ){
+						((Abonne) u1).supprimerAbonne();
+					}
+					if(u1 instanceof Administrateur ){
+						((Administrateur) u1).supprimerAdministrateur();
+					}
+					if(u1 instanceof Gerant ){
+						((Gerant) u1).supprimerGerant();
+					}
 					listeUtilisateur.remove(i);
 			}
 			u1 = null;

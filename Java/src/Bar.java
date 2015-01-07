@@ -9,7 +9,7 @@ public class Bar
 	
 	private Adresse adresse;
 	
-	private int horodateSuppresion;
+	private String horodateSuppresion;
 	
 	private String emplacementPhoto;
 	
@@ -53,7 +53,8 @@ public class Bar
 		this.valide = false;
 	}
 	/* Parametre dateSuppression pbl de type String ou int*/
-	public void BarTemporaire( String nom, int capacite, Adresse adresse, int dateSuppression )
+	//BarTemporaire
+	public Bar( String nom, int capacite, Adresse adresse, String dateSuppression )
 	{
 		this.setNom(nom);
 		this.setCapaciteBar(capacite);
@@ -113,11 +114,11 @@ public class Bar
 		this.adresse = adresse;
 	}
 
-	public int getHorodateSuppresion() {
+	public String getHorodateSuppresion() {
 		return horodateSuppresion;
 	}
 
-	public void setHorodateSuppresion(int horodateSuppresion) {
+	public void setHorodateSuppresion(String horodateSuppresion) {
 		this.horodateSuppresion = horodateSuppresion;
 	}
 

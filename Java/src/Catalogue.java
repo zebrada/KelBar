@@ -194,9 +194,9 @@ public class Catalogue
 		return listeEvenementDesAmis;
 	}
 	
-	public boolean inscrireEvenement( Utilisateur u1, Evenement e1 )
+	public boolean inscrireEvenement( Abonne a, Evenement e1 )
 	{
-		e1.inscrireAbonne(u1);
+		e1.inscrireAbonne(a);
 		return false;
 	}
 	
@@ -391,8 +391,8 @@ public class Catalogue
 	/*Je vai le faire*/
 	public void creerBarTemporaire( String nom, int capacite, Adresse adresse, String dateSuppression )
 	{
-		Bar b1 = new Bar(nom, capacite, adresse, dateSuppression );
-		/*Faut il l'ajouter à la liste de bar ?*/
+		listeBar.add(new Bar(nom, capacite, adresse, dateSuppression ));
+		/*Faut il l'ajouter à la liste de bar ? OUI*/
 	}
 	/*Je vai le faire*/
 	public void accepterBar( Bar b1 )

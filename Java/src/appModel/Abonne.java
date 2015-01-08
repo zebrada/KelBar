@@ -32,11 +32,11 @@ public class Abonne extends Utilisateur
 		super(gerant.getPseudo(), gerant.getPrenom(), gerant.getNom(), gerant.getAdresse(), gerant.getDateNaissance(), gerant.getEmail(), gerant.getMotDePasse());
 
 		gerant.supprimerGerant();
-	}	
+	}
 
 	public boolean inviterEvenement( Evenement e1 )
 	{
-		return false;
+		return listeInvitationEvenement.add(e1);
 	}
 
 	public void supprimerAbonne( )
@@ -288,6 +288,5 @@ public class Abonne extends Utilisateur
 	
 	public ArrayList<Evenement> getListeEvenementsParticipe(){
 		return this.listeEvenementsParticipe;
-	
 	}
 }

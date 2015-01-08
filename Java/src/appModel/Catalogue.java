@@ -15,15 +15,13 @@ public class Catalogue
 	
 	private List<Utilisateur> listeUtilisateur;
 	
-<<<<<<< HEAD
-	public List<Bar> getLb(){
-		return this.listeBar;
-	}
-=======
+
 	private Utilisateur session;
 	private int newSession;
 	
->>>>>>> origin/master
+	public List<Bar> getLb(){
+		return this.listeBar;
+	}
 	public Catalogue(){
 		this.listeBar = new ArrayList<Bar>();
 		this.listeEvenement = new ArrayList<Evenement>();

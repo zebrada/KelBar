@@ -1,13 +1,20 @@
 package appInterface;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import appModel.Abonne;
+import appModel.Administrateur;
 import appModel.Adresse;
 import appModel.Catalogue;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.custom.ViewForm;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class Application {
 
@@ -58,10 +65,13 @@ public class Application {
 	protected void createContents() {
 		shlKelbarBeta = new Shell();
 		shlKelbarBeta.setToolTipText("");
-		shlKelbarBeta.setMinimumSize(new Point(800, 500));
+		shlKelbarBeta.setMinimumSize(new org.eclipse.swt.graphics.Point(800, 500));
 		shlKelbarBeta.setSize(682, 430);
 		shlKelbarBeta.setText("KelBar - Beta 1.0");
 		shlKelbarBeta.setLayout(new FillLayout(SWT.HORIZONTAL));
+		
+		
+		
 		
 		
 		
@@ -127,17 +137,52 @@ public class Application {
 			dialog.open();
 		if(catalogue.getNewSession() == 1){
 			System.out.println("Nouvel utilisateur affichage du formulaire.");
-//			afficherDialogNewAbonne
-		} else if(catalogue.getSession() instanceof Abonne){
+		    // afficherDialogNewAbonne
+			while(catalogue.getSession() == null && catalogue.getNewSession() == 1){
+				InscriptionDialog inscriptionDialog = new InscriptionDialog(shlKelbarBeta, catalogue);
+				inscriptionDialog.open();
+			}
+		}
+		if(catalogue.getSession() instanceof Abonne){
 			System.out.println("Un abonné est connecté.");
 //			afficherVueAbonne();
 		} else if(catalogue.getSession() instanceof Abonne){
 			System.out.println("Un gérant est connecté.");
 //			afficherVueGerant();
-		} else{
+		} else if(catalogue.getSession() instanceof Administrateur){
 			System.out.println("Un admin est connecté.");
 //			afficherVueAdmin();
+			vueAdmin();
+		} else {
+			dialogConnexion();
 		}
 //		System.out.println(catalogue.getSession().getPrenom());
+	}
+
+	private void vueAdmin() {
+		Composite composite = new Composite(shlKelbarBeta, SWT.NONE);
+		composite.setLayout(new FillLayout(SWT.HORIZONTAL));
+		
+		TabFolder tabFolder = new TabFolder(composite, SWT.NONE);
+		
+		TabItem tbtmNewItem = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem.setText("New Item");
+		
+		ViewForm viewForm = new ViewForm(tabFolder, SWT.NONE);
+		tbtmNewItem.setControl(viewForm);
+		
+		Button btnNewButton = new Button(viewForm, SWT.NONE);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		viewForm.setContent(btnNewButton);
+		btnNewButton.setText("New Button");
+		
+		TabItem tbtmNewItem_1 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_1.setText("New Item");
+		
+		composite.pack();
 	}
 }

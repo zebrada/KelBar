@@ -3,10 +3,6 @@ package appInterface;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -17,9 +13,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import appModel.Catalogue;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 
 public class ConnexionDialog extends Dialog {
 	private Text text_pseudo;
@@ -42,12 +35,6 @@ public class ConnexionDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
-		container.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				System.out.println(text_mdp.getText());
-			}
-		});
 		container.setLayout(new GridLayout(4, false));
 		new Label(container, SWT.NONE);
 		new Label(container, SWT.NONE);
@@ -65,12 +52,6 @@ public class ConnexionDialog extends Dialog {
 		lblNewLabel.setText("Pseudo");
 		
 		text_pseudo = new Text(container, SWT.BORDER);
-		text_pseudo.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-//				System.out.println(text_pseudo.getText());
-			}
-		});
 		GridData gd_text = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
 		gd_text.widthHint = 210;
 		text_pseudo.setLayoutData(gd_text);
@@ -82,13 +63,6 @@ public class ConnexionDialog extends Dialog {
 		lblMotDePasse.setText("Mot de Passe");
 		
 		text_mdp = new Text(container, SWT.BORDER);
-		text_mdp.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-//				catalogue.tentativeConnection(text_pseudo.getText(), text_mdp.getText());
-//				System.out.println(catalogue.getSession().getPrenom());
-			}
-		});
 		GridData gd_text_1 = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
 		gd_text_1.widthHint = 210;
 		text_mdp.setLayoutData(gd_text_1);
@@ -104,19 +78,22 @@ public class ConnexionDialog extends Dialog {
 	protected void createButtonsForButtonBar(Composite parent) {
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
-		Button button = createButton(parent, 300, "Nouvel Utilisateur", false);
-		button.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				catalogue.setNewSession(1);
-				okPressed();
-			}
-		});
+		createButton(parent, 300, "Nouvel Utilisateur", false);
 	}
 	
 
 	protected void okPressed() {
 		catalogue.tentativeConnection(text_pseudo.getText(), text_mdp.getText());
 		super.okPressed();
+	}
+	
+	@Override
+	protected void buttonPressed(int buttonId) {
+		if(buttonId == 300){
+			catalogue.setNewSession(1);
+			okPressed();
+		}
+		super.buttonPressed(buttonId);
 	}
 
 	/**

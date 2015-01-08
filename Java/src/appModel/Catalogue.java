@@ -15,6 +15,9 @@ public class Catalogue
 	
 	private List<Utilisateur> listeUtilisateur;
 	
+	private Utilisateur session;
+	private int newSession;
+	
 	public Catalogue(){
 		this.listeBar = new ArrayList<Bar>();
 		this.listeEvenement = new ArrayList<Evenement>();
@@ -27,6 +30,22 @@ public class Catalogue
 		this.listeUtilisateur = listeUtilisateur;
 	}
 	
+	public Utilisateur getSession() {
+		return session;
+	}
+
+	public void setSession(Utilisateur session) {
+		this.session = session;
+	}
+
+	public int getNewSession() {
+		return newSession;
+	}
+
+	public void setNewSession(int newSession) {
+		this.newSession = newSession;
+	}
+
 	public List<Utilisateur> chercherUtilisateur( String information )
 	{
 		int i;
@@ -242,6 +261,7 @@ public class Catalogue
 			if(u.getPseudo().equals(pseudo) && u.getMotDePasse().equals(mdp)){
 				if(u.isConnexionAutorise()){
 					u.seConnecter();
+					this.session = u;
 					return u;
 				}
 			}

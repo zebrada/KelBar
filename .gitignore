@@ -13,3 +13,4 @@ Java/bin/Catalogue.class
 *.bak
 Java/.settings/org.eclipse.jdt.core.prefs
 Java/.settings/org.eclipse.jdt.core.prefs
+Java/.classpath

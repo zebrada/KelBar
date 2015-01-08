@@ -23,6 +23,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.custom.TableCursor;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class InfoBar extends Composite {
 	private Table table;
@@ -64,11 +66,13 @@ public class InfoBar extends Composite {
 		canvas.setBounds(322, 5, 118, 96);
 		
 		table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setBounds(5, 56, 311, 234);
+		table.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		table.setBounds(5, 55, 311, 235);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		
 		TableItem tableItem = new TableItem(table, SWT.NONE);
+		tableItem.setText(new String[] {});
 		tableItem.setText("Nom du Bar");
 		
 		TableItem tableItem_1 = new TableItem(table, SWT.NONE);

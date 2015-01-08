@@ -15,6 +15,9 @@ public class Catalogue
 	
 	private List<Utilisateur> listeUtilisateur;
 	
+	public List<Bar> getLb(){
+		return this.listeBar;
+	}
 	public Catalogue(){
 		this.listeBar = new ArrayList<Bar>();
 		this.listeEvenement = new ArrayList<Evenement>();

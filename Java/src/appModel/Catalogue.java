@@ -3,6 +3,9 @@ package appModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import fenetre.Bar;
+import fenetre.Utilisateur;
+
 /**
  * @(#) Catalogue.java
  */
@@ -380,8 +383,6 @@ public class Catalogue
 		return 3;
 	}
 	
-	
-	/*Je vai le faire*/
 	public boolean modifierBar( Bar b1, String nom, String heureOuverture, String heureFermeture, int capacite, String promotion, String emplacementPhoto, Adresse adresse, Gerant gerant )
 	{
 		if(listeBar.contains(b1))
@@ -436,17 +437,47 @@ public class Catalogue
 	
 	
 	/*souci avec le constructeur de bar temporaire dans la classe bar*/
-	/*Je vai le faire*/
+	
 	public void creerBarTemporaire( String nom, int capacite, Adresse adresse, String dateSuppression )
 	{
 		listeBar.add(new Bar(nom, capacite, adresse, dateSuppression ));
 		/*Faut il l'ajouter à la liste de bar ? OUI*/
 	}
-	/*Je vai le faire*/
+	
 	public void accepterBar( Bar b1 )
 	{
 		b1.setValide(true);
 	}
 	
+	public boolean supprimerBar(Bar b1,Utilisateur u1)
+	{
+		if(listeBar.contains(b1)&&(verifStatutUtilisateur(u1)==2)&&b1.estGerant(u1))
+		{
+			int i;
+			for( i =0; i < listeBar.size();i++)
+			{
+				if(listeBar.get(i)==b1)
+					listeBar.remove(i);
+			}
+			b1.supprimerBar(b1);
+			return true;
+		}
+		return false;
+	}
 	
+	public boolean supprimerBar(Bar b1)
+	{
+		if(listeBar.contains(b1))
+		{
+			int i;
+			for( i =0; i < listeBar.size();i++)
+			{
+				if(listeBar.get(i)==b1)
+					listeBar.remove(i);
+			}
+			b1.supprimerBar(b1);
+			return true;
+		}
+		return false;
+	}
 }
